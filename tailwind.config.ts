@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
-
-const { fontFamily } = require("tailwindcss/defaultTheme");
+import { fontFamily as defaultFontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
   darkMode: ["class"],
@@ -45,14 +44,19 @@ const config = {
           600: "#76828D",
           700: "#ABB8C4",
         },
+        black: {
+          800: "#0A0A0A",
+          900: "#000000",
+        },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ["var(--font-sans)", ...defaultFontFamily.sans],
       },
       backgroundImage: {
         appointments: "url('/assets/images/appointments-bg.png')",
         pending: "url('/assets/images/pending-bg.png')",
         cancelled: "url('/assets/images/cancelled-bg.png')",
+        "light-rays": "url('/images/light-rays.svg')",
       },
       keyframes: {
         "accordion-down": {
