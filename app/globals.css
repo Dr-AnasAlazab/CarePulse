@@ -1,9 +1,89 @@
+/* tailwindcss */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @config "../tailwind.config.ts";
 
-/* ========================================== TAILWIND STYLES */
+@theme {
+  /* Colors */
+  --color-*: initial;
+  --color-green-500: #24ae7c;
+  --color-green-600: #0d2a1f;
+
+  --color-blue-500: #79b5ec;
+  --color-blue-600: #152432;
+
+  --color-red-500: #f37877;
+  --color-red-600: #3e1716;
+  --color-red-700: #f24e43;
+
+  --color-light-200: #e8e9e9;
+
+  --color-dark-200: #0d0f10;
+  --color-dark-300: #131619;
+  --color-dark-400: #1a1d21;
+  --color-dark-500: #363a3d;
+  --color-dark-600: #76828d;
+  --color-dark-700: #abb8c4;
+
+  --color-black-800: #0a0a0a;
+  --color-black-900: #000000;
+
+  /* Font family */
+  --font-sans: var(--font-sans-system), ui-sans-serif, system-ui, sans-serif;
+
+  /* Breakpoints */
+  --breakpoint-2xl: 1400px;
+
+  /* Container padding */
+  --container-padding: 2rem;
+
+  /* Background images */
+  --bg-light-rays: url("/images/light-rays.svg");
+}
+
+:root {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-caret-blink: caret-blink 1.25s ease-out infinite;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@keyframes caret-blink {
+  0%,
+  70%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Dark mode overrides */
+.dark {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+}
+
 @layer base {
   /* Remove scrollbar */
   .remove-scrollbar::-webkit-scrollbar {
@@ -22,13 +102,12 @@
   }
 
   .remove-scrollbar::-webkit-scrollbar-thumb:hover {
-    /* background: #1e2238; */
     background: transparent;
   }
 }
 
-@layer utilities {
-  /* ===== UTILITIES */
+@layer components {
+  /* Component classes that represent reusable UI elements */
   .sidebar {
     @apply remove-scrollbar w-full max-w-[72] flex-col overflow-auto bg-dark-700 px-[7] py-[10];
   }
@@ -41,20 +120,12 @@
     @apply hidden xl:flex;
   }
 
-  .clip-text {
-    @apply bg-clip-text text-transparent;
-  }
-
-  .bg-image {
-    @apply bg-black-900 bg-light-rays bg-cover bg-no-repeat;
-  }
-
   .header {
-    @apply text-32-bold md:text-36-bold;
+    @apply text-[32px] leading-[36px] font-bold md:text-[36px] md:leading-[40px];
   }
 
   .sub-header {
-    @apply text-18-bold md:text-24-bold;
+    @apply text-[18px] leading-[24px] font-bold md:text-[24px] md:leading-[28px];
   }
 
   .container {
@@ -73,7 +144,7 @@
     @apply text-14-regular justify-items-end text-center text-dark-600 xl:text-left;
   }
 
-  /* ==== SUCCESS */
+  /* Success components */
   .success-img {
     @apply m-auto flex flex-1 flex-col items-center justify-between gap-[10] py-[10];
   }
@@ -82,7 +153,7 @@
     @apply flex w-full flex-col items-center gap-[8] border-y-[2] border-dark-400 py-[8] md:w-fit md:flex-row;
   }
 
-  /* ===== ADMIN */
+  /* Admin components */
   .admin-header {
     @apply sticky top-[3] z-[20] mx-[3] flex items-center justify-between rounded-[2xl] bg-dark-200 px-[5%] py-[5] shadow-lg xl:px-[12];
   }
@@ -95,7 +166,7 @@
     @apply flex w-full flex-col justify-between gap-[5] sm:flex-row xl:gap-[10];
   }
 
-  /* ==== FORM */
+  /* Form components */
   .radio-group {
     @apply flex h-full flex-1 items-center gap-[2] rounded-md border border-dashed border-dark-500 bg-dark-400 p-[3];
   }
@@ -104,26 +175,26 @@
     @apply cursor-pointer text-sm font-medium text-dark-700 peer-disabled:cursor-not-allowed peer-disabled:opacity-[70] md:leading-none;
   }
 
-  /* ==== File Upload */
+  /* File Upload components */
   .file-upload {
-    @apply text-12-regular flex cursor-pointer flex-col items-center justify-center gap-[3] rounded-md border border-dashed border-dark-500 bg-dark-400 p-[5];
+    @apply text-[12px] leading-[16px] font-normal flex cursor-pointer flex-col items-center justify-center gap-[3] rounded-md border border-dashed border-dark-500 bg-dark-400 p-[5];
   }
 
   .file-upload_label {
     @apply flex flex-col justify-center gap-[2] text-center text-dark-600;
   }
 
-  /* ==== Stat Card */
+  /* Stat Card component */
   .stat-card {
     @apply flex flex-1 flex-col gap-[6] rounded-[2xl] bg-cover p-[6] shadow-lg;
   }
 
-  /* ==== Status Badge */
+  /* Status Badge component */
   .status-badge {
     @apply flex w-fit items-center gap-[2] rounded-full px-[4] py-[2];
   }
 
-  /* Data Table */
+  /* Data Table components */
   .data-table {
     @apply z-[10] w-full overflow-hidden rounded-lg border border-dark-400 shadow-lg;
   }
@@ -132,7 +203,103 @@
     @apply flex w-full items-center justify-between space-x-[2] p-[4];
   }
 
-  /* ===== ALIGNMENTS */
+  /* Shadcn component overrides */
+  .shad-primary-btn {
+    @apply bg-green-500 text-white !important;
+  }
+
+  .shad-danger-btn {
+    @apply bg-red-700 text-white !important;
+  }
+
+  .shad-gray-btn {
+    @apply border border-dark-500 cursor-pointer bg-dark-400 text-white !important;
+  }
+
+  .shad-input-label {
+    @apply text-[14px] leading-[18px] font-medium text-dark-700 !important;
+  }
+
+  .shad-input {
+    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 h-[11] focus-visible:ring-[0] focus-visible:ring-offset-[0] !important;
+  }
+
+  .shad-input-icon {
+    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 h-[11] focus-visible:ring-[0] focus-visible:ring-offset-[0] !important;
+  }
+
+  .shad-textArea {
+    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 focus-visible:ring-[0] focus-visible:ring-offset-[0] !important;
+  }
+
+  .shad-combobox-item {
+    @apply data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-[50] !important;
+  }
+
+  .shad-combobox-trigger {
+    @apply h-[11] !important;
+  }
+
+  .shad-select-trigger {
+    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 h-[11] focus:ring-[0] focus:ring-offset-[0] !important;
+  }
+
+  .shad-select-content {
+    @apply bg-dark-400 border-dark-500 !important;
+  }
+
+  .shad-dialog {
+    @apply bg-dark-400 border-dark-500 !important;
+  }
+
+  .shad-dialog button {
+    @apply focus:ring-[0] focus:ring-offset-[0] focus-visible:border-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-[0] !important;
+  }
+
+  .shad-error {
+    @apply text-red-400 !important;
+  }
+
+  .shad-table {
+    @apply rounded-lg overflow-hidden !important;
+  }
+
+  .shad-table-row-header {
+    @apply border-b border-dark-400 text-light-200 hover:bg-transparent !important;
+  }
+
+  .shad-table-row {
+    @apply border-b border-dark-400 text-light-200 !important;
+  }
+
+  .shad-otp {
+    @apply w-full flex justify-between !important;
+  }
+
+  .shad-otp-slot {
+    @apply text-[36px] leading-[40px] font-bold justify-center flex border border-dark-500 rounded-lg size-[16] gap-[4] !important;
+  }
+
+  .shad-alert-dialog {
+    @apply space-y-[5] bg-dark-400 border-dark-500 outline-none !important;
+  }
+
+  .shad-sheet-content button {
+    @apply top-[2] focus:ring-[0] focus:ring-offset-[0] focus-visible:border-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-[0] !important;
+  }
+}
+
+/* Utility classes */
+@layer utilities {
+  .clip-text {
+    @apply bg-clip-text text-transparent;
+  }
+
+  .bg-image {
+    @apply bg-black-900 bg-light-rays bg-cover bg-no-repeat;
+  }
+
+  /* Layout utilities */
   .flex-center {
     @apply flex items-center justify-center;
   }
@@ -141,17 +308,17 @@
     @apply flex items-center justify-between;
   }
 
-  /* ===== TYPOGRAPHY */
+  /* Typography utilities */
   .text-36-bold {
     @apply text-[36px] leading-[40px] font-bold;
   }
 
-  .text-24-bold {
-    @apply text-[24px] leading-[28px] font-bold;
-  }
-
   .text-32-bold {
     @apply text-[32px] leading-[36px] font-bold;
+  }
+
+  .text-24-bold {
+    @apply text-[24px] leading-[28px] font-bold;
   }
 
   .text-18-bold {
@@ -182,103 +349,19 @@
     @apply text-[12px] leading-[16px] font-semibold;
   }
 
-  /* =====  SHADCN OVERRIDES */
-  .shad-primary-btn {
-    @apply bg-green-500 text-white !important;
-  }
-
-  .shad-danger-btn {
-    @apply bg-red-700 text-white !important;
-  }
-
-  .shad-gray-btn {
-    @apply border border-dark-500 cursor-pointer bg-dark-400 text-white !important;
-  }
-
-  .shad-input-label {
-    @apply text-14-medium text-dark-700 !important;
-  }
-
-  .shad-input {
-    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 h-[11] focus-visible:ring-0 focus-visible:ring-offset-0 !important;
-  }
-
-  .shad-input-icon {
-    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 h-[11] focus-visible:ring-0 focus-visible:ring-offset-0 !important;
-  }
-
-  .shad-textArea {
-    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 focus-visible:ring-0 focus-visible:ring-offset-0 !important;
-  }
-
-  .shad-combobox-item {
-    @apply data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-[50] !important;
-  }
-
-  .shad-combobox-trigger {
-    @apply h-[11] !important;
-  }
-
-  .shad-select-trigger {
-    @apply bg-dark-400 placeholder:text-dark-600 border-dark-500 h-[11] focus:ring-0 focus:ring-offset-0 !important;
-  }
-
-  .shad-select-content {
-    @apply bg-dark-400 border-dark-500 !important;
-  }
-
-  .shad-dialog {
-    @apply bg-dark-400 border-dark-500 !important;
-  }
-
-  .shad-dialog button {
-    @apply focus:ring-0 focus:ring-offset-0 focus-visible:border-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
-  }
-
-  .shad-error {
-    @apply text-red-400 !important;
-  }
-
-  .shad-table {
-    @apply rounded-lg overflow-hidden !important;
-  }
-
-  .shad-table-row-header {
-    @apply border-b border-dark-400 text-light-200 hover:bg-transparent !important;
-  }
-
-  .shad-table-row {
-    @apply border-b border-dark-400 text-light-200 !important;
-  }
-
-  .shad-otp {
-    @apply w-full flex justify-between !important;
-  }
-
-  .shad-otp-slot {
-    @apply text-36-bold justify-center flex border border-dark-500 rounded-lg size-[16] gap-[4] !important;
-  }
-
-  .shad-alert-dialog {
-    @apply space-y-[5] bg-dark-400 border-dark-500 outline-none !important;
-  }
-
-  .shad-sheet-content button {
-    @apply top-[2] focus:ring-0 focus:ring-offset-0 focus-visible:border-none focus-visible:outline-none focus-visible:ring-transparent focus-visible:ring-offset-0 !important;
-  }
-
-  /* =====  REACT PHONE NUMBER INPUT OVERRIDES */
+  /* Form input utilities */
   .input-phone {
     @apply mt-[2] h-[11] rounded-md px-[3] text-sm border bg-dark-400 placeholder:text-dark-600 border-dark-500 !important;
   }
 
-  /* =====  REACT DATE PICKER OVERRIDES */
   .date-picker {
-    @apply overflow-hidden border-transparent w-full placeholder:text-dark-600 h-[11] text-14-medium rounded-md px-[3] outline-none !important;
+    @apply overflow-hidden border-transparent w-full placeholder:text-dark-600 h-[11] text-[14px] leading-[18px] font-medium rounded-md px-[3] outline-none !important;
   }
 }
 
-/* =====  REACT-DATEPICKER OVERRIDES */
+/* External library overrides that can't go in @layer */
+
+/* React Datepicker overrides */
 .react-datepicker-wrapper.date-picker {
   display: flex;
   align-items: center;
@@ -337,7 +420,7 @@
   align-items: center !important;
 }
 
-/* =====  REACT PHONE NUMBER INPUT OVERRIDES */
+/* React Phone Number Input overrides */
 .PhoneInputInput {
   outline: none;
   margin-left: 4px;
